@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UrbanWear — Wear Confidence. Build Identity.</title>
+  <meta name="description" content="Premium minimal mobile-first clothing brand storefront for India. Shop UrbanWear essentials with easy WhatsApp checkout." />
+  <style>
+    :root{
+      --bg:#F5F6F7;
+      --surface:rgba(255,255,255,.88);
+      --card:#FFFFFF;
+      --text:#1C1C1E;
+      --muted:#6B7280;
+      --accent:#0F172A;
+      --accent-2:#000000;
+      --line:rgba(28,28,30,.08);
+      --line-strong:rgba(28,28,30,.12);
+      --shadow:0 20px 50px rgba(15,23,42,.08), 0 6px 18px rgba(15,23,42,.05);
+      --radius:28px;
+      --radius-sm:20px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.5;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      padding-bottom:172px;
+    }
+    body.modal-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    img,svg{display:block;max-width:100%}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .container{width:min(1120px,calc(100% - 24px));margin:0 auto}
+    .section-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:14px;
+      margin-bottom:18px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size:clamp(1.7rem,4vw,2.6rem);
+      letter-spacing:-.04em;
+      line-height:1;
+    }
+    .section-head p{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:520px;
+      font-size:15px;
+    }
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:9px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:600;
+      letter-spacing:.02em;
+      box-shadow:0 8px 20px rgba(15,23,42,.04);
+    }
+    .eyebrow::before{
+      content:"";
+      width:8px;
+      height:8px;
+      border-radius:50%;
+      background:linear-gradient(135deg,#111827,#000);
+    }
+    .btn{
+      border:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 18px;
+      border-radius:999px;
+      font-weight:700;
+      transition:transform .25s ease, box-shadow .25s ease, opacity .25s ease, background .25s ease;
+      white-space:nowrap;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{
+      color:#fff;
+      background:linear-gradient(135deg,#111827,#000000);
+      box-shadow:var(--shadow);
+    }
+    .btn-secondary{
+      color:var(--text);
+      background:rgba(255,255,255,.9);
+      border:1px solid var(--line);
+    }
+    .btn-light{
+      color:var(--text);
+      background:#fff;
+      border:1px solid var(--line);
+    }
+    .btn.full{width:100%}
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:60;
+      backdrop-filter:blur(18px);
+      background:rgba(245,246,247,.74);
+      border-bottom:1px solid rgba(28,28,30,.05);
+    }
+    .bar{
+      min-height:68px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size:16px;
+      font-weight:800;
+      letter-spacing:-.03em;
+    }
+    .logo-mark{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      display:grid;
+      place-items:center;
+      color:#fff;
+      background:linear-gradient(135deg,#0F172A,#000);
+      box-shadow:var(--shadow);
+      font-size:14px;
+    }
+    .desktop-nav{
+      display:none;
+      align-items:center;
+      gap:22px;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      color:var(--muted);
+    }
+    .desktop-nav a{
+      padding:8px 0;
+      position:relative;
+      transition:color .2s ease;
+    }
+    .desktop-nav a.active,
+    .desktop-nav a:hover{color:var(--text)}
+    .head-cta{
+      padding:10px 16px;
+      border-radius:999px;
+      color:#fff;
+      background:linear-gradient(135deg,#0F172A,#000);
+      box-shadow:var(--shadow);
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .hero{
+      padding:28px 0 18px;
+    }
+    .hero-grid{
+      display:grid;
+      gap:18px;
+      align-items:center;
+    }
+    .hero-copy h1{
+      margin:12px 0 14px;
+      font-size:clamp(2.7rem,10vw,5.4rem);
+      line-height:.93;
+      letter-spacing:-.07em;
+    }
+    .hero-copy p{
+      margin:0 0 22px;
+      font-size:16px;
+      color:var(--muted);
+      max-width:620px;
+    }
+    .hero-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .hero-trust{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:22px;
+    }
+    .trust-card{
+      background:rgba(255,255,255,.74);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:14px;
+      box-shadow:0 10px 24px rgba(15,23,42,.04);
+    }
+    .trust-card strong{
+      display:block;
+      font-size:15px;
+      letter-spacing:-.02em;
+    }
+    .trust-card span{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .hero-card{
+      position:relative;
+      overflow:hidden;
+      padding:18px;
+      border-radius:34px;
+      background:linear-gradient(180deg,rgba(255,255,255,.95),rgba(255,255,255,.86));
+      border:1px solid rgba(28,28,30,.06);
+      box-shadow:var(--shadow);
+      min-height:360px;
+    }
+    .hero-card::before{
+      content:"";
+      position:absolute;
+      width:240px;
+      height:240px;
+      border-radius:50%;
+      top:-80px;
+      right:-70px;
+      background:radial-gradient(circle,rgba(15,23,42,.12),transparent 62%);
+      pointer-events:none;
+    }
+    .hero-badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      font-size:12px;
+      color:var(--muted);
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .hero-stack{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:12px;
+      align-items:stretch;
+    }
+    .hero-main-card,
+    .hero-mini{
+      background:linear-gradient(180deg,#FCFCFD,#F2F3F5);
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      position:relative;
+    }
+    .hero-main-card{padding:12px;min-height:260px}
+    .hero-side{
+      display:grid;
+      gap:12px;
+    }
+    .hero-mini{
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      min-height:124px;
+    }
+    .hero-mini span{
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .hero-mini strong{
+      font-size:20px;
+      line-height:1.05;
+      letter-spacing:-.04em;
+    }
+    .hero-mini small{
+      color:var(--muted);
+      font-size:13px;
+    }
+    .hero-note{
+      margin-top:14px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .hero-note strong{color:var(--text)}
+
+    .banner{
+      padding:8px 0 8px;
+    }
+    .banner-card{
+      border-radius:30px;
+      padding:20px;
+      background:linear-gradient(135deg,#ffffff,#f0f2f5);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+      display:grid;
+      gap:14px;
+    }
+    .banner-card h3{
+      margin:0;
+      font-size:clamp(1.35rem,4.4vw,2.1rem);
+      line-height:1.04;
+      letter-spacing:-.05em;
+    }
+    .banner-card p{
+      margin:8px 0 0;
+      color:var(--muted);
+      max-width:620px;
+    }
+    .banner-pills{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .pill{
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--text);
+      font-size:13px;
+      font-weight:600;
+    }
+
+    .story{
+      padding:22px 0 8px;
+    }
+    .story-card{
+      padding:24px;
+      border-radius:30px;
+      background:rgba(255,255,255,.76);
+      border:1px solid var(--line);
+      box-shadow:0 12px 28px rgba(15,23,42,.04);
+    }
+    .story-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      max-width:820px;
+    }
+    .story-card strong{color:var(--text)}
+
+    .products{
+      padding:24px 0 12px;
+    }
+    .product-grid{
+      display:grid;
+      gap:14px;
+    }
+    .product-card{
+      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.88));
+      border:1px solid var(--line);
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 12px 28px rgba(15,23,42,.05);
+      transition:transform .28s ease, box-shadow .28s ease;
+    }
+    .product-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 36px rgba(15,23,42,.09);
+    }
+    .product-visual{
+      aspect-ratio:4/5;
+      padding:12px;
+      position:relative;
+      overflow:hidden;
+      background:linear-gradient(180deg,#FBFBFC,#EFF2F5);
+    }
+    .product-visual::after{
+      content:"";
+      position:absolute;
+      inset:auto -25% -30% auto;
+      width:170px;
+      height:170px;
+      border-radius:50%;
+      background:radial-gradient(circle,rgba(15,23,42,.08),transparent 66%);
+    }
+    .product-chip{
+      position:absolute;
+      top:14px;
+      left:14px;
+      z-index:2;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:1px solid var(--line);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:.06em;
+      text-transform:uppercase;
+    }
+    .product-art{
+      width:100%;
+      height:100%;
+      border-radius:24px;
+      overflow:hidden;
+      border:1px solid rgba(28,28,30,.05);
+      background:linear-gradient(180deg,#f6f7f8,#eceff2);
+    }
+    .product-body{
+      padding:16px;
+      display:grid;
+      gap:14px;
+    }
+    .product-info{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .product-info h3{
+      margin:0;
+      font-size:18px;
+      letter-spacing:-.03em;
+      line-height:1.08;
+    }
+    .price{
+      font-size:19px;
+      font-weight:800;
+      letter-spacing:-.04em;
+      white-space:nowrap;
+    }
+
+    .contact,
+    .checkout{
+      padding:24px 0;
+    }
+    .contact-grid{
+      display:grid;
+      gap:14px;
+    }
+    .info-card{
+      background:rgba(255,255,255,.84);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:18px;
+      box-shadow:0 12px 28px rgba(15,23,42,.04);
+    }
+    .info-card h4{
+      margin:0 0 6px;
+      font-size:18px;
+      letter-spacing:-.03em;
+    }
+    .info-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .info-card .space{height:14px}
+
+    .checkout-shell{
+      background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.88));
+      border:1px solid var(--line);
+      border-radius:32px;
+      padding:20px;
+      box-shadow:var(--shadow);
+    }
+    .checkout-top{
+      display:grid;
+      gap:14px;
+      margin-bottom:16px;
+    }
+    .mini-note{
+      display:inline-flex;
+      width:max-content;
+      padding:10px 14px;
+      border-radius:999px;
+      background:#fff;
+      border:1px solid var(--line);
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+    .order-form{
+      display:grid;
+      gap:14px;
+    }
+    .form-grid{
+      display:grid;
+      gap:14px;
+    }
+    .field{
+      display:grid;
+      gap:8px;
+    }
+    .field label{
+      font-size:13px;
+      font-weight:700;
+      color:var(--muted);
+    }
+    .field input,
+    .field select,
+    .field textarea{
+      width:100%;
+      border:1px solid var(--line-strong);
+      background:#fff;
+      color:var(--text);
+      border-radius:18px;
+      padding:14px 16px;
+      outline:none;
+      transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+      box-shadow:0 4px 10px rgba(15,23,42,.02);
+    }
+    .field textarea{min-height:110px;resize:vertical}
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus{
+      border-color:rgba(15,23,42,.25);
+      box-shadow:0 0 0 4px rgba(15,23,42,.06);
+    }
+    .submit-note{
+      color:var(--muted);
+      font-size:13px;
+      margin:0;
+    }
+
+    footer{
+      padding:12px 0 26px;
+    }
+    .footer-card{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:18px 20px;
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+      border-radius:24px;
+    }
+    .footer-card p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .mobile-sticky-cta{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:calc(82px + env(safe-area-inset-bottom));
+      width:min(560px,calc(100% - 24px));
+      z-index:71;
+    }
+    .mobile-sticky-cta .btn{
+      width:100%;
+      padding:16px 18px;
+      border-radius:22px;
+    }
+
+    .mobile-nav{
+      position:fixed;
+      left:50%;
+      transform:translateX(-50%);
+      bottom:calc(10px + env(safe-area-inset-bottom));
+      width:min(560px,calc(100% - 24px));
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(18px);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:10px;
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      z-index:70;
+      box-shadow:var(--shadow);
+    }
+    .mobile-nav a{
+      display:grid;
+      place-items:center;
+      gap:6px;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:700;
+      padding:8px 6px;
+      border-radius:18px;
+      transition:background .2s ease, color .2s ease;
+      text-transform:uppercase;
+      letter-spacing:.05em;
+    }
+    .mobile-nav a.active{
+      background:#F2F4F6;
+      color:var(--text);
+    }
+    .mobile-nav svg{width:18px;height:18px}
+
+    .whatsapp-float{
+      position:fixed;
+      right:16px;
+      bottom:150px;
+      width:58px;
+      height:58px;
+      border-radius:50%;
+      background:#25D366;
+      color:#fff;
+      display:grid;
+      place-items:center;
+      z-index:75;
+      box-shadow:0 18px 30px rgba(37,211,102,.28);
+      transition:transform .25s ease;
+    }
+    .whatsapp-float:hover{transform:translateY(-2px)}
+
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      z-index:100;
+    }
+    .modal.open{display:block}
+    .modal-backdrop{
+      position:absolute;
+      inset:0;
+      background:rgba(0,0,0,.38);
+      backdrop-filter:blur(10px);
+    }
+    .modal-sheet{
+      position:absolute;
+      left:50%;
+      bottom:0;
+      transform:translate(-50%,26px);
+      width:min(720px,calc(100% - 16px));
+      background:#fff;
+      border-radius:28px 28px 0 0;
+      padding:18px 16px calc(16px + env(safe-area-inset-bottom));
+      box-shadow:0 -20px 60px rgba(15,23,42,.2);
+      transition:transform .28s ease;
+      max-height:92vh;
+      overflow:auto;
+    }
+    .modal.open .modal-sheet{transform:translate(-50%,0)}
+    .modal-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .modal-top h3{
+      margin:0;
+      font-size:24px;
+      letter-spacing:-.04em;
+      line-height:1.02;
+    }
+    .modal-top p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+    .modal-close{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      border:1px solid var(--line);
+      background:#fff;
+      font-size:22px;
+      line-height:1;
+      color:var(--text);
+      flex:0 0 auto;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(22px);
+      transition:opacity .65s ease, transform .65s ease;
+    }
+    .reveal.in-view{
+      opacity:1;
+      transform:none;
+    }
+
+    @media (min-width:720px){
+      .banner-card{grid-template-columns:1.2fr auto;align-items:center}
+      .contact-grid{grid-template-columns:repeat(3,1fr)}
+      .form-grid.two{grid-template-columns:1fr 1fr}
+      .form-grid.three{grid-template-columns:1.2fr .8fr .8fr}
+      .product-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media (min-width:900px){
+      body{padding-bottom:0}
+      .desktop-nav{display:flex}
+      .mobile-nav,.mobile-sticky-cta{display:none}
+      .hero-grid{grid-template-columns:1.02fr .98fr}
+      .banner{padding-top:14px}
+      .whatsapp-float{bottom:24px;right:24px}
+      .checkout-top{grid-template-columns:1.2fr .8fr;align-items:end}
+      .modal-sheet{
+        top:50%;
+        bottom:auto;
+        transform:translate(-50%,-46%);
+        border-radius:28px;
+        padding:22px;
+      }
+      .modal.open .modal-sheet{transform:translate(-50%,-50%)}
+    }
+    @media (min-width:1080px){
+      .product-grid{grid-template-columns:repeat(3,1fr)}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container bar">
+      <a href="#home" class="logo">
+        <span class="logo-mark">U</span>
+        <span>UrbanWear</span>
+      </a>
+
+      <nav class="desktop-nav">
+        <a href="#home" data-nav>HOME</a>
+        <a href="#shop" data-nav>SHOP</a>
+        <a href="#contact" data-nav>CONTACT</a>
+      </nav>
+
+      <a href="#shop" class="head-cta">Shop Now</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <span class="eyebrow">Premium Minimal Streetwear · India</span>
+          <h1>Wear Confidence.<br>Build Identity.</h1>
+          <p>UrbanWear delivers clean, youth-focused essentials with premium feel, smooth mobile shopping, and fast WhatsApp ordering.</p>
+          <div class="hero-actions">
+            <a href="#shop" class="btn btn-primary">Shop Now</a>
+          </div>
+          <div class="hero-trust">
+            <div class="trust-card">
+              <strong>From ₹499</strong>
+              <span>Premium everyday fits</span>
+            </div>
+            <div class="trust-card">
+              <strong>Easy Checkout</strong>
+              <span>Direct on WhatsApp</span>
+            </div>
+            <div class="trust-card">
+              <strong>India Ready</strong>
+              <span>Made for city movement</span>
+            </div>
+          </div>
+        </div>
+
+      <section class="banner">
+      <div class="container">
+        <div class="banner-card reveal">
+          <div>
+            <h3>Clean silhouettes. Generous whitespace. High-conversion shopping.</h3>
+            <p>Built like a premium Apple-inspired fashion storefront with smooth flow, subtle shadows, and quick one-hand navigation.</p>
+          </div>
+          <div class="banner-pills">
+            <span class="pill">Oversized Fits</span>
+            <span class="pill">Premium Cotton</span>
+            <span class="pill">Youth Focused</span>
+            <span class="pill">Direct WhatsApp</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="story" class="story">
+      <div class="container">
+        <div class="story-card reveal">
+          <span class="eyebrow" style="margin-bottom:14px;">Brand Story</span>
+          <p><strong>UrbanWear</strong> is built for the new generation that wants sharp basics without loud noise. Every piece is designed to feel effortless, premium, and wearable across campus, commute, cafés, and late-night plans.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="shop" class="products">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Shop Page</span>
+            <h2>Featured Products</h2>
+            <p>Minimal cards, premium visuals, and fast checkout for high intent buyers.</p>
+          </div>
+        </div>
+
+        <div class="product-grid">
+          <article class="product-card reveal">
+            <div class="product-visual">
+              <div class="product-chip">Best Seller</div>
+              <div class="product-art">
+                <svg viewBox="0 0 240 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="teeBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#F7F8FA"/>
+                      <stop offset="100%" stop-color="#EBEEF2"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="240" height="300" fill="url(#teeBg)"/>
+                  <circle cx="186" cy="66" r="48" fill="rgba(15,23,42,.06)"/>
+                  <path d="M82 62 64 86 42 80 26 116 52 132 60 120 62 244c0 12 10 20 22 20h72c12 0 22-8 22-20l2-124 8 12 26-16-16-36-22 6-18-24H82Z" fill="#1C1C1E"/>
+                  <path d="M98 62c4 14 12 20 22 20s18-6 22-20" stroke="#F5F6F7" stroke-width="4" stroke-linecap="round"/>
+                  <text x="22" y="270" fill="#1C1C1E" font-size="14" font-family="Arial, sans-serif" font-weight="700">OVERSIZED TEE</text>
+                </svg>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-info">
+                <h3>Oversized T-Shirt</h3>
+                <div class="price">₹499</div>
+              </div>
+              <button class="btn btn-primary order-btn" data-product="Oversized T-Shirt" data-price="₹499">Order Now</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal">
+            <div class="product-visual">
+              <div class="product-chip">Premium</div>
+              <div class="product-art">
+                <svg viewBox="0 0 240 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="shirtBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#FAFBFC"/>
+                      <stop offset="100%" stop-color="#EEF1F4"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="240" height="300" fill="url(#shirtBg)"/>
+                  <circle cx="186" cy="68" r="48" fill="rgba(15,23,42,.06)"/>
+                  <path d="M90 54 120 76 150 54 176 82 163 112 176 240c1 12-8 22-21 22H85c-13 0-22-10-21-22l13-128-13-30 26-28Z" fill="#FCFCFD" stroke="#D9DDE3" stroke-width="2"/>
+                  <path d="M120 76v170" stroke="#D2D7DE" stroke-width="2"/>
+                  <path d="M108 64 120 78 132 64" stroke="#CBD1D8" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="120" cy="116" r="2.8" fill="#BFC6CF"/>
+                  <circle cx="120" cy="138" r="2.8" fill="#BFC6CF"/>
+                  <circle cx="120" cy="160" r="2.8" fill="#BFC6CF"/>
+                  <circle cx="120" cy="182" r="2.8" fill="#BFC6CF"/>
+                  <text x="22" y="270" fill="#1C1C1E" font-size="14" font-family="Arial, sans-serif" font-weight="700">PREMIUM SHIRT</text>
+                </svg>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-info">
+                <h3>Premium Cotton Shirt</h3>
+                <div class="price">₹799</div>
+              </div>
+              <button class="btn btn-primary order-btn" data-product="Premium Cotton Shirt" data-price="₹799">Order Now</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal">
+            <div class="product-visual">
+              <div class="product-chip">Street</div>
+              <div class="product-art">
+                <svg viewBox="0 0 240 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="hoodieBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#F7F8FA"/>
+                      <stop offset="100%" stop-color="#E9EDF1"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="240" height="300" fill="url(#hoodieBg)"/>
+                  <circle cx="184" cy="70" r="48" fill="rgba(15,23,42,.06)"/>
+                  <path d="M120 48c-24 0-42 17-42 40v18l-22 22-12 110c-2 14 9 26 24 26h104c15 0 26-12 24-26l-12-110-22-22V88c0-23-18-40-42-40Z" fill="#232630"/>
+                  <path d="M120 62c-13 0-24 10-24 24v24c0 10 6 17 14 22l10-10 10 10c8-5 14-12 14-22V86c0-14-11-24-24-24Z" fill="#1A1D25"/>
+                  <rect x="90" y="150" width="60" height="34" rx="16" fill="#2D3240"/>
+                  <text x="22" y="270" fill="#1C1C1E" font-size="14" font-family="Arial, sans-serif" font-weight="700">HOODIE</text>
+                </svg>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-info">
+                <h3>Hoodie</h3>
+                <div class="price">₹999</div>
+              </div>
+              <button class="btn btn-primary order-btn" data-product="Hoodie" data-price="₹999">Order Now</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal">
+            <div class="product-visual">
+              <div class="product-chip">Denim</div>
+              <div class="product-art">
+                <svg viewBox="0 0 240 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="jeansBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#F7F8FA"/>
+                      <stop offset="100%" stop-color="#EAEFF5"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="240" height="300" fill="url(#jeansBg)"/>
+                  <circle cx="184" cy="70" r="48" fill="rgba(15,23,42,.06)"/>
+                  <path d="M82 54h76l10 56-16 138c-1 8-7 14-15 14h-20l-6-98-6 98H83c-8 0-14-6-15-14L52 110l30-56Z" fill="#3D5E86"/>
+                  <path d="M84 54h72l6 34H78l6-34Z" fill="#4C709C"/>
+                  <path d="M120 88v174" stroke="#88A1BC" stroke-width="3"/>
+                  <path d="M97 71h46" stroke="#88A1BC" stroke-width="2"/>
+                  <circle cx="120" cy="71" r="3" fill="#C4D0DD"/>
+                  <text x="22" y="270" fill="#1C1C1E" font-size="14" font-family="Arial, sans-serif" font-weight="700">SLIM JEANS</text>
+                </svg>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-info">
+                <h3>Slim Jeans</h3>
+                <div class="price">₹1199</div>
+              </div>
+              <button class="btn btn-primary order-btn" data-product="Slim Jeans" data-price="₹1199">Order Now</button>
+            </div>
+          </article>
+
+          <article class="product-card reveal">
+            <div class="product-visual">
+              <div class="product-chip">Daily Wear</div>
+              <div class="product-art">
+                <svg viewBox="0 0 240 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="lowerBg" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0%" stop-color="#F8F9FB"/>
+                      <stop offset="100%" stop-color="#ECEFF3"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="240" height="300" fill="url(#lowerBg)"/>
+                  <circle cx="184" cy="70" r="48" fill="rgba(15,23,42,.06)"/>
+                  <path d="M80 56h80l8 62-18 130c-1 8-8 14-16 14h-14l-6-92-6 92H94c-8 0-15-6-16-14L60 118l20-62Z" fill="#676E78"/>
+                  <rect x="80" y="56" width="80" height="24" rx="10" fill="#737B86"/>
+                  <rect x="90" y="252" width="22" height="12" rx="6" fill="#59606A"/>
+                  <rect x="128" y="252" width="22" height="12" rx="6" fill="#59606A"/>
+                  <text x="22" y="270" fill="#1C1C1E" font-size="14" font-family="Arial, sans-serif" font-weight="700">LOWER PANTS</text>
+                </svg>
+              </div>
+            </div>
+            <div class="product-body">
+              <div class="product-info">
+                <h3>Lower Pants</h3>
+                <div class="price">₹699</div>
+              </div>
+              <button class="btn btn-primary order-btn" data-product="Lower Pants" data-price="₹699">Order Now</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <span class="eyebrow">Contact Page</span>
+            <h2>Simple. Direct. Personal.</h2>
+            <p>For fast support and orders, WhatsApp is the primary checkout and contact channel.</p>
+          </div>
+        </div>
+
+        <div class="contact-grid">
+          <div class="info-card reveal">
+            <h4>WhatsApp Orders</h4>
+            <p>Place your order instantly on WhatsApp with prefilled product details.</p>
+            <div class="space"></div>
+            <a href="https://wa.me/919988563942" target="_blank" rel="noopener" class="btn btn-primary">Chat on WhatsApp</a>
+          </div>
+
+          <div class="info-card reveal">
+            <h4>Support Number</h4>
+            <p>+91 9988563942</p>
+            <div class="space"></div>
+            <p>Ideal for order confirmation, size queries, and delivery details across India.</p>
+          </div>
+
+          <div class="info-card reveal">
+            <h4>UrbanWear Promise</h4>
+            <p>Premium basics, minimalist presentation, and a youth-focused brand identity designed for modern Indian shoppers.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="checkout" class="checkout">
+      <div class="container">
+        <div class="checkout-shell reveal">
+          <div class="checkout-top">
+            <div>
+              <span class="eyebrow">Checkout Page</span>
+              <div class="section-head" style="margin:10px 0 0;">
+                <div>
+                  <h2>Complete Your Order</h2>
+                  <p>Select your product, fill your details, and continue to WhatsApp with a ready-to-send order message.</p>
+                </div>
+              </div>
+            </div>
+            <div class="mini-note">Fast checkout · No unnecessary steps</div>
+          </div>
+
+          <form id="checkoutForm" class="order-form">
+            <div class="form-grid three">
+              <div class="field">
+                <label for="checkoutProduct">Product</label>
+                <select id="checkoutProduct" name="productPrice" required>
+                  <option value="Oversized T-Shirt|₹499">Oversized T-Shirt — ₹499</option>
+                  <option value="Premium Cotton Shirt|₹799">Premium Cotton Shirt — ₹799</option>
+                  <option value="Hoodie|₹999">Hoodie — ₹999</option>
+                  <option value="Slim Jeans|₹1199">Slim Jeans — ₹1199</option>
+                  <option value="Lower Pants|₹699">Lower Pants — ₹699</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="checkoutSize">Size</label>
+                <select id="checkoutSize" name="size" required>
+                  <option value="" selected disabled>Select Size</option>
+                  <option>S</option>
+                  <option>M</option>
+                  <option>L</option>
+                  <option>XL</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="checkoutQty">Quantity</label>
+                <input id="checkoutQty" name="quantity" type="number" min="1" value="1" required />
+              </div>
+            </div>
+
+            <div class="form-grid two">
+              <div class="field">
+                <label for="checkoutName">Full Name</label>
+                <input id="checkoutName" name="fullName" type="text" placeholder="Enter your full name" required />
+              </div>
+              <div class="field">
+                <label for="checkoutPhone">Phone Number</label>
+                <input id="checkoutPhone" name="phone" type="tel" placeholder="Enter your phone number" required />
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="checkoutAddress">Address</label>
+              <textarea id="checkoutAddress" name="address" placeholder="House / Street / Area / City / State / PIN" required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary full">Proceed to WhatsApp Checkout</button>
+            <p class="submit-note">You will be redirected to WhatsApp with your order details prefilled.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-card">
+          <strong>UrbanWear</strong>
+          <p>Wear Confidence. Build Identity.</p>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <a class="whatsapp-float" href="https://wa.me/919988563942" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M16.02 4C9.39 4 4 9.21 4 15.64c0 2.05.56 4.05 1.61 5.81L4 28l6.84-1.77a12.3 12.3 0 0 0 5.18 1.15h.01c6.63 0 12.02-5.22 12.02-11.64C28.05 9.21 22.66 4 16.02 4Zm0 21.33h-.01a10.3 10.3 0 0 1-5.24-1.43l-.38-.23-4.06 1.05 1.08-3.93-.25-.4A9.5 9.5 0 0 1 5.98 15.65c0-5.29 4.5-9.59 10.03-9.59 5.52 0 10.02 4.3 10.02 9.59 0 5.28-4.5 9.58-10 9.58Zm5.5-7.15c-.3-.15-1.75-.86-2.02-.95-.27-.1-.47-.15-.66.15-.2.3-.76.95-.94 1.14-.17.2-.34.22-.64.07-.3-.15-1.25-.45-2.38-1.44-.88-.77-1.48-1.72-1.66-2.01-.17-.3-.02-.46.13-.61.13-.13.3-.35.44-.52.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.08-.15-.66-1.57-.9-2.15-.24-.56-.48-.48-.66-.49H10.9c-.2 0-.53.08-.8.38-.27.3-1.05 1.02-1.05 2.49 0 1.46 1.08 2.88 1.23 3.07.15.2 2.1 3.3 5.2 4.49.74.28 1.32.45 1.77.57.74.19 1.42.16 1.96.1.6-.07 1.75-.72 1.99-1.42.25-.7.25-1.3.18-1.42-.07-.12-.27-.2-.57-.35Z"/>
+    </svg>
+  </a>
+
+  <div class="mobile-sticky-cta">
+    <a href="#shop" class="btn btn-primary">Shop Now</a>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation">
+    <a href="#home" data-nav>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="#shop" data-nav>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1.2 12H7.2L6 7Z"/><path d="M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+      <span>Shop</span>
+    </a>
+    <a href="#checkout" data-nav>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h16v12H4z"/><path d="M4 10h16"/><path d="M8 15h4"/></svg>
+      <span>Checkout</span>
+    </a>
+    <a href="#contact" data-nav>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <div class="modal" id="orderModal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-sheet">
+      <div class="modal-top">
+        <div>
+          <h3>Quick Order</h3>
+          <p>Finish your UrbanWear order and continue to WhatsApp.</p>
+        </div>
+        <button class="modal-close" data-close aria-label="Close modal">&times;</button>
+      </div>
+
+      <form id="modalOrderForm" class="order-form">
+        <div class="form-grid two">
+          <div class="field">
+            <label for="modalProduct">Product</label>
+            <input id="modalProduct" name="product" type="text" readonly required />
+          </div>
+          <div class="field">
+            <label for="modalPrice">Price</label>
+            <input id="modalPrice" name="price" type="text" readonly required />
+          </div>
+        </div>
+
+        <div class="form-grid two">
+          <div class="field">
+            <label for="modalName">Full Name</label>
+            <input id="modalName" name="fullName" type="text" placeholder="Enter your full name" required />
+          </div>
+          <div class="field">
+            <label for="modalPhone">Phone Number</label>
+            <input id="modalPhone" name="phone" type="tel" placeholder="Enter your phone number" required />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="modalAddress">Address</label>
+          <textarea id="modalAddress" name="address" placeholder="House / Street / Area / City / State / PIN" required></textarea>
+        </div>
+
+        <div class="form-grid two">
+          <div class="field">
+            <label for="modalSize">Size</label>
+            <select id="modalSize" name="size" required>
+              <option value="" selected disabled>Select Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="modalQty">Quantity</label>
+            <input id="modalQty" name="quantity" type="number" min="1" value="1" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary full">Order on WhatsApp</button>
+        <p class="submit-note">Your message will open in WhatsApp with complete order details.</p>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const WHATSAPP_NUMBER = "919988563942";
+
+    const orderModal = document.getElementById("orderModal");
+    const modalProduct = document.getElementById("modalProduct");
+    const modalPrice = document.getElementById("modalPrice");
+    const checkoutProduct = document.getElementById("checkoutProduct");
+
+    function buildMessage(product, price, name, phone, address, size, quantity) {
+      return `New Order:
+Product: ${product}
+Price: ${price}
+Name: ${name}
+Phone: ${phone}
+Address: ${address}
+Size: ${size}
+Quantity: ${quantity}`;
+    }
+
+    function redirectToWhatsApp(message) {
+      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.location.href = url;
+    }
+
+    function openModal(product, price) {
+      modalProduct.value = product;
+      modalPrice.value = price;
+      const optionValue = `${product}|${price}`;
+      if ([...checkoutProduct.options].some(option => option.value === optionValue)) {
+        checkoutProduct.value = optionValue;
+      }
+      orderModal.classList.add("open");
+      orderModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
+      setTimeout(() => document.getElementById("modalName").focus(), 80);
+    }
+
+    function closeModal() {
+      orderModal.classList.remove("open");
+      orderModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+    }
+
+    document.querySelectorAll(".order-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        openModal(button.dataset.product, button.dataset.price);
+      });
+    });
+
+    document.querySelectorAll("[data-close]").forEach(el => {
+      el.addEventListener("click", closeModal);
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && orderModal.classList.contains("open")) closeModal();
+    });
+
+    document.getElementById("modalOrderForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const product = this.product.value.trim();
+      const price = this.price.value.trim();
+      const name = this.fullName.value.trim();
+      const phone = this.phone.value.trim();
+      const address = this.address.value.trim();
+      const size = this.size.value;
+      const quantity = this.quantity.value.trim();
+      const message = buildMessage(product, price, name, phone, address, size, quantity);
+      redirectToWhatsApp(message);
+    });
+
+    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const [product, price] = this.productPrice.value.split("|");
+      const name = this.fullName.value.trim();
+      const phone = this.phone.value.trim();
+      const address = this.address.value.trim();
+      const size = this.size.value;
+      const quantity = this.quantity.value.trim();
+      const message = buildMessage(product, price, name, phone, address, size, quantity);
+      redirectToWhatsApp(message);
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("in-view");
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    const navLinks = document.querySelectorAll("[data-nav]");
+    const sections = document.querySelectorAll("section[id]");
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(link => {
+          link.classList.toggle("active", link.getAttribute("href") === `#${entry.target.id}`);
+        });
+      });
+    }, { rootMargin: "-42% 0px -42% 0px", threshold: 0 });
+
+    sections.forEach(section => navObserver.observe(section));
+  </script>
+</body>
+</html>
